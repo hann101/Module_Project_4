@@ -2,7 +2,7 @@ from policy.views.image_data import image
 from flask import Blueprint,request,jsonify
 from flask.templating import render_template
 from pymongo import MongoClient
-from .app_id import search_image
+# from .app_id import search_image
 from .pp import s3_image_path
 from .hash_func import hashTag
 from flask import Blueprint, url_for, render_template, flash, request, session
@@ -48,8 +48,8 @@ def read_articles():
 
         search = url_receive # 검색어
         print(len(image_list))
-        image_list = search_image(user_id,search)
-
+        # image_list = search_image(user_id,search)
+        image_list = ['1.jpg', '10.jpg', '11.jpg', '12.jpg', '13.jpg', '14.jpg', '15.jpg', '16.jpg', '17.jpg', '18.jpg', '19.jpg', '2.jpg', '20.jpg', '21.jpg', '22.jpg', '23.jpg', '24.jpg', '25.jpg', '26.jpg']
         print('검색어에 대한 리스트',image_list)
 
         print('S# 전체 데이터  \n\n',all_image)

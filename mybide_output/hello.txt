@@ -11,3 +11,308 @@ pip install SQLAlchemy==1.3.23 로 다운그레이드
 8. flask db migrate
 9. flask db upgrade
 10. flask run(서버 실행)`\
+
+
+
+<div class="col-md-4 mb-4">
+  
+            <!-- Section: Sidebar -->
+            <section>
+                
+  
+              <!-- Section: Categories -->
+              <section>
+  
+                <h5>Subcategories</h5>
+  
+                <div class="text-muted small text-uppercase mb-5">
+
+                </div>
+  
+              </section>
+              <!-- Section: Categories -->
+  
+              <!-- Section: Filters -->
+              <section class="filters">
+                <h5>Filters</h5>
+  
+                <!-- Section: Condition -->
+                <section filter="condition" class="mb-4">
+                  <h6 class="font-weight-bold mb-3">Condition</h6>
+  
+                  <div class="form-check pl-0 mb-3">
+                    <input
+                      type="checkbox"
+                      class="filter-option form-check-input filled-in"
+                      condition="new"
+                      id="new"
+                    />
+                    <label
+                      class="form-check-label small text-uppercase card-link-secondary"
+                      for="new"
+                      >New</label
+                    >
+                  </div>
+                  <div class="form-check pl-0 mb-3">
+                    <input
+                      condition="used"
+                      type="checkbox"
+                      class="filter-option form-check-input filled-in"
+                      id="used"
+                    />
+                    <label
+                      class="form-check-label small text-uppercase card-link-secondary"
+                      for="used"
+                      >Used</label
+                    >
+                  </div>
+                  <div class="form-check pl-0 mb-3">
+                    <input
+                      condition="collectible"
+                      type="checkbox"
+                      class="filter-option form-check-input filled-in"
+                      id="collectible"
+                    />
+                    <label
+                      class="form-check-label small text-uppercase card-link-secondary"
+                      for="collectible"
+                      >Collectible</label
+                    >
+                  </div>
+                  <div class="form-check pl-0 mb-3 pb-1">
+                    <input
+                      condition="renewed"
+                      type="checkbox"
+                      class="filter-option form-check-input filled-in"
+                      id="renewed"
+                    />
+                    <label
+                      class="form-check-label small text-uppercase card-link-secondary"
+                      for="renewed"
+                      >Renewed</label
+                    >
+                  </div>
+                </section>
+                <!-- Section: Condition -->
+  
+        
+                </section>
+                <!-- Section: Average -->
+  
+                <!-- Section: Price -->
+                <section class="mb-4" filter="price">
+                  <h6 class="font-weight-bold mb-3">Price</h6>
+  
+                  <div class="form-check pl-0 mb-3">
+                    <input
+                      price="0-25"
+                      type="radio"
+                      class="filter-option form-check-input"
+                      id="under25"
+                      name="materialExampleRadios"
+                    />
+                    <label
+                      class="form-check-label small text-uppercase card-link-secondary"
+                      for="under25"
+                      >Under $25</label
+                    >
+                  </div>
+                  <div class="form-check pl-0 mb-3">
+                    <input
+                      price="25-50"
+                      type="radio"
+                      class="filter-option form-check-input"
+                      id="2550"
+                      name="materialExampleRadios"
+                    />
+                    <label
+                      class="form-check-label small text-uppercase card-link-secondary"
+                      for="2550"
+                      >$25 to $50</label
+                    >
+                  </div>
+                  <div class="form-check pl-0 mb-3">
+                    <input
+                      price="50-100"
+                      type="radio"
+                      class="filter-option form-check-input"
+                      id="50100"
+                      name="materialExampleRadios"
+                    />
+                    <label
+                      class="form-check-label small text-uppercase card-link-secondary"
+                      for="50100"
+                      >$50 to $100</label
+                    >
+                  </div>
+                  <div class="form-check pl-0 mb-3">
+                    <input
+                      price="100-200"
+                      type="radio"
+                      class="filter-option form-check-input"
+                      id="100200"
+                      name="materialExampleRadios"
+                    />
+                    <label
+                      class="form-check-label small text-uppercase card-link-secondary"
+                      for="100200"
+                      >$100 to $200</label
+                    >
+                  </div>
+                  <div class="form-check pl-0 mb-3">
+                    <input
+                      price="200-*"
+                      type="radio"
+                      class="filter-option form-check-input"
+                      id="200above"
+                      name="materialExampleRadios"
+                    />
+                    <label
+                      class="form-check-label small text-uppercase card-link-secondary"
+                      for="200above"
+                      >$200 & Above</label
+                    >
+                  </div>
+                </section>
+                <!-- Section: Price -->
+  
+                <!-- Section: Size -->
+                <section class="mb-4" filter="size">
+                  <h6 class="font-weight-bold mb-3">Size</h6>
+  
+                  <div class="form-check pl-0 mb-3">
+                    <input
+                      size="34"
+                      type="checkbox"
+                      class="filter-option form-check-input filled-in"
+                      id="34"
+                    />
+                    <label
+                      class="form-check-label small text-uppercase card-link-secondary"
+                      for="34"
+                      >34</label
+                    >
+                  </div>
+                  <div class="form-check pl-0 mb-3">
+                    <input
+                      size="36"
+                      type="checkbox"
+                      class="filter-option form-check-input filled-in"
+                      id="36"
+                    />
+                    <label
+                      class="form-check-label small text-uppercase card-link-secondary"
+                      for="36"
+                      >36</label
+                    >
+                  </div>
+                  <div class="form-check pl-0 mb-3">
+                    <input
+                      size="38"
+                      type="checkbox"
+                      class="filter-option form-check-input filled-in"
+                      id="38"
+                    />
+                    <label
+                      class="form-check-label small text-uppercase card-link-secondary"
+                      for="38"
+                      >38</label
+                    >
+                  </div>
+                  <div class="form-check pl-0 mb-3">
+                    <input
+                      size="40"
+                      type="checkbox"
+                      class="filter-option form-check-input filled-in"
+                      id="40"
+                    />
+                    <label
+                      class="form-check-label small text-uppercase card-link-secondary"
+                      for="40"
+                      >40</label
+                    >
+                  </div>
+                  <a
+                    class="btn btn-link text-muted p-0"
+                    data-toggle="collapse"
+                    href="#collapseExample"
+                    aria-expanded="false"
+                    aria-controls="collapseExample"
+                  >
+                    More
+                  </a>
+                  <div class="collapse pt-3" id="collapseExample">
+                    <div class="form-check pl-0 mb-3">
+                      <input
+                        size="42"
+                        type="checkbox"
+                        class="filter-option form-check-input filled-in"
+                        id="42"
+                      />
+                      <label
+                        class="form-check-label small text-uppercase card-link-secondary"
+                        for="42"
+                        >42</label
+                      >
+                    </div>
+                    <div class="form-check pl-0 mb-3">
+                      <input
+                        size="44"
+                        type="checkbox"
+                        class="filter-option form-check-input filled-in"
+                        id="44"
+                      />
+                      <label
+                        class="form-check-label small text-uppercase card-link-secondary"
+                        for="44"
+                        >44</label
+                      >
+                    </div>
+                    <div class="form-check pl-0 mb-3">
+                      <input
+                        size="46"
+                        type="checkbox"
+                        class="filter-option form-check-input filled-in"
+                        id="46"
+                      />
+                      <label
+                        class="form-check-label small text-uppercase card-link-secondary"
+                        for="46"
+                        >46</label
+                      >
+                    </div>
+                    <div class="form-check pl-0 mb-3">
+                      <input
+                        size="50"
+                        type="checkbox"
+                        class="filter-option form-check-input filled-in"
+                        id="50"
+                      />
+                      <label
+                        class="form-check-label small text-uppercase card-link-secondary"
+                        for="50"
+                        >50</label
+                      >
+                    </div>
+                  </div>
+                </section>
+                <!-- Section: Size -->
+  
+                <!-- Section: Color -->
+                <!-- <section class="mb-4" filter="color">
+                  <h6 class="font-weight-bold mb-3">Color</h6>
+  
+                  <div
+                    class="btn-group btn-group-toggle btn-color-group d-block mt-n2 ml-n2"
+                    data-toggle="buttons"
+                  >
+                  </div>
+                </section> -->
+                <!-- Section: Color -->
+              </section>
+              <!-- Section: Filters -->
+  
+            </section>
+            <!-- Section: Sidebar -->
+  
+          </div>
