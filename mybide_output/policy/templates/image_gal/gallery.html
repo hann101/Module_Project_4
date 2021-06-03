@@ -1,0 +1,647 @@
+{% extends 'base.html' %}
+{% block content %}
+<head>
+  
+<style>
+
+
+jumbotron {
+  font-weight:bold;  
+	margin:0;
+	color:#edf3ff;
+	background:#c8c8c8;
+	background:url(https://hdqwalls.com/download/material-design-4k-2048x1152.jpg) fixed;
+	background-size: cover;
+	font:600 16px/18px 'Open Sans',sans-serif;
+}
+.loader-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  z-index: 998;
+}
+.loader-overlay .preloader-wrapper {
+  position: fixed;
+  top: 50%;
+}
+
+*{font-family: 'Sunflower', sans-serif;}
+
+</style>
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Sunflower:wght@300&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script>
+
+
+
+$(document).ready(() => {
+  // $(".mdb-select").materialSelect();
+  // getProducts();
+  $("#card-box").html("");
+  showArticles();
+  // $("keyword").submit("");
+  // showA();
+})
+
+
+
+function postArticle() {
+  // 1. 유저가 입력한 데이터를 #post-url과 #post-comment에서 가져오기
+  let url = $("#post-url").val();
+  let comment = $("#post-comment").val();
+
+  // 2. memo에 POST 방식으로 메모 생성 요청하기
+  $.ajax({
+    type: "POST", // POST 방식으로 요청하겠다.
+    url: "/image/gallery", // /memo라는 url에 요청하겠다.
+    data: { url_give: url, comment_give: comment}, // 데이터를 주는 방법
+    success: function(response){ // 성공하면
+      if (response["result"] == "success") {
+        alert("포스팅 성공!");
+				// 3. 성공 시 페이지 새로고침하기
+        window.location.reload();
+      } else {
+        alert("검색어를 입력해주세요!")
+      }
+    }
+  })
+}
+
+
+function showArticles() {
+                    $.ajax({
+                        type: "GET",
+                        url: "/image/gallery",
+                        data: {},
+                        success: function(response){
+                        let keyword = response["keyword"] // ex) 
+                        let articles = response["articles"];
+                        let image_list = response["image_list"]
+                        let hash_tag = response['hash_tag']
+                        let url = $("#post-url").val();
+                        // console.log(type(url))
+
+                          console.log(image_list)
+                          // console.log(hash_tag[0])
+                          // console.log(hash_tag[0].length)
+
+                          // let a = String(hash_tag[0])
+                          // console.log(typeof(a))
+                          // let regexFor
+                          // let b = a.replaceAll(',',' #')
+                          // console.log(b)
+                          let hash_tag_str = []
+
+                          for (let j = 0; j < hash_tag.length; j++){
+                            console.log(hash_tag[j])
+                            let a = String(hash_tag[j])
+                            console.log(typeof(a))
+                            let regexFor
+                            let b = a.replaceAll(',',' #')
+                            // console.log(b)
+                            hash_tag_str.push(b)
+                            console.log(hash_tag_str)
+                            console.log(typeof(hash_tag_str))
+                            }
+                          // 0은 파일이름 
+                          // 1부터 태그
+                           for (let i = 0; i < image_list.length; i++) {
+                            // console.log(image_list[i])
+
+                            // console.log(hash_tag[i])
+                        //     for (let j = 0; j < hash_tag[i].length; j++){
+                        //       console.log(hash_tag[i][j])
+                             
+                        //     }
+                            makeCard(image_list[i],hash_tag_str[i])
+                        }
+                          let img_0  = "2a6e42f0-5b37-4c6d-8cb8-fc15531139d2.jpg"
+// 해시태그 $ 붙인걸로 바꾸기
+
+                          
+                          // makeCard(img_0,a)
+
+//                           for (let i = 0; i < articles.length; i++) {
+//       makeCard(articles[0]["image"][i]['image_path'],articles[i]["image"][i]["tag"][i] )
+// }
+                        }
+                    })
+                    }
+
+                    function makeCard(image_name, comment) {
+                        let temp_html = `
+                        <div class="col-md-20 mb-10" >
+                        <div class="card">
+                                            <img class="card-img-top" src="https://mybide.s3.amazonaws.com/user_image/${image_name}" alt="Card image cap">
+                                            
+                                            <div class="card-body">
+                                            <p class="card-text comment">#${comment}</p>
+                                            </div>
+                                        </div>`;
+                        $("#cards-box").append(temp_html);
+                        
+                        }    
+
+
+
+
+</script>
+<!-- The sidebar -->
+  
+<body class="skin-light">
+
+    <!--Main Navigation-->
+    <header>
+        
+      <!-- Navbar -->
+      
+      <!-- Navbar -->
+  
+      <div class="jumbotron jumbotron-image color-grey-light"
+        style=
+        "background-image: url('https://hdqwalls.com/download/material-design-4k-2048x1152.jpg'); height: 400px;"
+        >
+        <div class="mask rgba-black-strong d-flex align-items-center h-100">
+          <div class="container text-center white-text py-5">
+             <h1 style="font-weight:bold; font-size: 90px; color:white;">Search Gallery</h1> 
+          </div>
+        </div>
+      </div>
+  
+    </header>
+    <!--Main Navigation-->
+  
+    <!--Main layout-->
+    <main>
+      <div class="container">
+  
+        <!--Grid row-->
+        <div class="row mt-5">
+            
+  
+          <!--Grid column-->
+          <div class="col-md-4 mb-4">
+  
+            <!-- Section: Sidebar -->
+            <section>
+                
+  
+              <!-- Section: Categories -->
+              <section>
+  
+                <h5>Subcategories</h5>
+  
+                <div class="text-muted small text-uppercase mb-5">
+                  <!-- <p class="mb-4">return to <a href="#!" class="card-link-secondary"><strong>Clothing, Shoes,
+                        Accessories</strong></a></p>
+  
+                  <p class="mb-3"><a href="#!" class="card-link-secondary">Dresses</a></p>
+                  <p class="mb-3"><a href="#!" class="card-link-secondary">Tops, Tees & Blouses</a></p>
+                  <p class="mb-3"><a href="#!" class="card-link-secondary">Sweaters</a></p>
+                  <p class="mb-3"><a href="#!" class="card-link-secondary">Fashion Hoodies & Sweatshirts</a></p>
+                  <p class="mb-3"><a href="#!" class="card-link-secondary">Jeans</a></p> -->
+                </div>
+  
+              </section>
+              <!-- Section: Categories -->
+  
+              <!-- Section: Filters -->
+              <section class="filters">
+                <h5>Filters</h5>
+  
+                <!-- Section: Condition -->
+                <section filter="condition" class="mb-4">
+                  <h6 class="font-weight-bold mb-3">Condition</h6>
+  
+                  <div class="form-check pl-0 mb-3">
+                    <input
+                      type="checkbox"
+                      class="filter-option form-check-input filled-in"
+                      condition="new"
+                      id="new"
+                    />
+                    <label
+                      class="form-check-label small text-uppercase card-link-secondary"
+                      for="new"
+                      >New</label
+                    >
+                  </div>
+                  <div class="form-check pl-0 mb-3">
+                    <input
+                      condition="used"
+                      type="checkbox"
+                      class="filter-option form-check-input filled-in"
+                      id="used"
+                    />
+                    <label
+                      class="form-check-label small text-uppercase card-link-secondary"
+                      for="used"
+                      >Used</label
+                    >
+                  </div>
+                  <div class="form-check pl-0 mb-3">
+                    <input
+                      condition="collectible"
+                      type="checkbox"
+                      class="filter-option form-check-input filled-in"
+                      id="collectible"
+                    />
+                    <label
+                      class="form-check-label small text-uppercase card-link-secondary"
+                      for="collectible"
+                      >Collectible</label
+                    >
+                  </div>
+                  <div class="form-check pl-0 mb-3 pb-1">
+                    <input
+                      condition="renewed"
+                      type="checkbox"
+                      class="filter-option form-check-input filled-in"
+                      id="renewed"
+                    />
+                    <label
+                      class="form-check-label small text-uppercase card-link-secondary"
+                      for="renewed"
+                      >Renewed</label
+                    >
+                  </div>
+                </section>
+                <!-- Section: Condition -->
+  
+        
+                </section>
+                <!-- Section: Average -->
+  
+                <!-- Section: Price -->
+                <section class="mb-4" filter="price">
+                  <h6 class="font-weight-bold mb-3">Price</h6>
+  
+                  <div class="form-check pl-0 mb-3">
+                    <input
+                      price="0-25"
+                      type="radio"
+                      class="filter-option form-check-input"
+                      id="under25"
+                      name="materialExampleRadios"
+                    />
+                    <label
+                      class="form-check-label small text-uppercase card-link-secondary"
+                      for="under25"
+                      >Under $25</label
+                    >
+                  </div>
+                  <div class="form-check pl-0 mb-3">
+                    <input
+                      price="25-50"
+                      type="radio"
+                      class="filter-option form-check-input"
+                      id="2550"
+                      name="materialExampleRadios"
+                    />
+                    <label
+                      class="form-check-label small text-uppercase card-link-secondary"
+                      for="2550"
+                      >$25 to $50</label
+                    >
+                  </div>
+                  <div class="form-check pl-0 mb-3">
+                    <input
+                      price="50-100"
+                      type="radio"
+                      class="filter-option form-check-input"
+                      id="50100"
+                      name="materialExampleRadios"
+                    />
+                    <label
+                      class="form-check-label small text-uppercase card-link-secondary"
+                      for="50100"
+                      >$50 to $100</label
+                    >
+                  </div>
+                  <div class="form-check pl-0 mb-3">
+                    <input
+                      price="100-200"
+                      type="radio"
+                      class="filter-option form-check-input"
+                      id="100200"
+                      name="materialExampleRadios"
+                    />
+                    <label
+                      class="form-check-label small text-uppercase card-link-secondary"
+                      for="100200"
+                      >$100 to $200</label
+                    >
+                  </div>
+                  <div class="form-check pl-0 mb-3">
+                    <input
+                      price="200-*"
+                      type="radio"
+                      class="filter-option form-check-input"
+                      id="200above"
+                      name="materialExampleRadios"
+                    />
+                    <label
+                      class="form-check-label small text-uppercase card-link-secondary"
+                      for="200above"
+                      >$200 & Above</label
+                    >
+                  </div>
+                </section>
+                <!-- Section: Price -->
+  
+                <!-- Section: Size -->
+                <section class="mb-4" filter="size">
+                  <h6 class="font-weight-bold mb-3">Size</h6>
+  
+                  <div class="form-check pl-0 mb-3">
+                    <input
+                      size="34"
+                      type="checkbox"
+                      class="filter-option form-check-input filled-in"
+                      id="34"
+                    />
+                    <label
+                      class="form-check-label small text-uppercase card-link-secondary"
+                      for="34"
+                      >34</label
+                    >
+                  </div>
+                  <div class="form-check pl-0 mb-3">
+                    <input
+                      size="36"
+                      type="checkbox"
+                      class="filter-option form-check-input filled-in"
+                      id="36"
+                    />
+                    <label
+                      class="form-check-label small text-uppercase card-link-secondary"
+                      for="36"
+                      >36</label
+                    >
+                  </div>
+                  <div class="form-check pl-0 mb-3">
+                    <input
+                      size="38"
+                      type="checkbox"
+                      class="filter-option form-check-input filled-in"
+                      id="38"
+                    />
+                    <label
+                      class="form-check-label small text-uppercase card-link-secondary"
+                      for="38"
+                      >38</label
+                    >
+                  </div>
+                  <div class="form-check pl-0 mb-3">
+                    <input
+                      size="40"
+                      type="checkbox"
+                      class="filter-option form-check-input filled-in"
+                      id="40"
+                    />
+                    <label
+                      class="form-check-label small text-uppercase card-link-secondary"
+                      for="40"
+                      >40</label
+                    >
+                  </div>
+                  <a
+                    class="btn btn-link text-muted p-0"
+                    data-toggle="collapse"
+                    href="#collapseExample"
+                    aria-expanded="false"
+                    aria-controls="collapseExample"
+                  >
+                    More
+                  </a>
+                  <div class="collapse pt-3" id="collapseExample">
+                    <div class="form-check pl-0 mb-3">
+                      <input
+                        size="42"
+                        type="checkbox"
+                        class="filter-option form-check-input filled-in"
+                        id="42"
+                      />
+                      <label
+                        class="form-check-label small text-uppercase card-link-secondary"
+                        for="42"
+                        >42</label
+                      >
+                    </div>
+                    <div class="form-check pl-0 mb-3">
+                      <input
+                        size="44"
+                        type="checkbox"
+                        class="filter-option form-check-input filled-in"
+                        id="44"
+                      />
+                      <label
+                        class="form-check-label small text-uppercase card-link-secondary"
+                        for="44"
+                        >44</label
+                      >
+                    </div>
+                    <div class="form-check pl-0 mb-3">
+                      <input
+                        size="46"
+                        type="checkbox"
+                        class="filter-option form-check-input filled-in"
+                        id="46"
+                      />
+                      <label
+                        class="form-check-label small text-uppercase card-link-secondary"
+                        for="46"
+                        >46</label
+                      >
+                    </div>
+                    <div class="form-check pl-0 mb-3">
+                      <input
+                        size="50"
+                        type="checkbox"
+                        class="filter-option form-check-input filled-in"
+                        id="50"
+                      />
+                      <label
+                        class="form-check-label small text-uppercase card-link-secondary"
+                        for="50"
+                        >50</label
+                      >
+                    </div>
+                  </div>
+                </section>
+                <!-- Section: Size -->
+  
+                <!-- Section: Color -->
+                <!-- <section class="mb-4" filter="color">
+                  <h6 class="font-weight-bold mb-3">Color</h6>
+  
+                  <div
+                    class="btn-group btn-group-toggle btn-color-group d-block mt-n2 ml-n2"
+                    data-toggle="buttons"
+                  >
+                  </div>
+                </section> -->
+                <!-- Section: Color -->
+              </section>
+              <!-- Section: Filters -->
+  
+            </section>
+            <!-- Section: Sidebar -->
+  
+          </div>
+          <div class="col-md-8 mb-4">
+
+
+              <!-- 이미지 갤러리 -->
+<section>
+
+
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="#">Search Image</a>
+      
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+          <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item active">
+              <!-- <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a> -->
+            </li>
+            <li class="nav-item">
+              <!-- <a class="nav-link" href="#">Link</a> -->
+            </li>
+            <li class="nav-item">
+              <!-- <a class="nav-link disabled" href="#">Disabled</a> -->
+            </li>
+          </ul>
+          <form class="form-inline my-2 my-lg-0">
+
+
+
+            <!-- <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="keyword">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->            
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="post-url">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick="postArticle()">Search</button>
+
+
+
+          </form>
+        </div>
+      </nav>
+
+<br>
+
+
+
+
+  <div class="row" id="product">
+    <div id="cards-box" class="card-columns">
+
+    <!-- </div>
+    {% for image_name in image_names %}
+    <div class="col-md-4 mb-5" >
+        <div >
+            <div class="view zoom overlay rounded z-depth-2" style="height: 130px;">
+              <img src="{{url_for('img_gallery.send_image', filename = image_name)}}" , width="300" , height="200" style="margin: 10px;" class="img-thumbnail">
+
+                <div class="mask">
+
+                    <div class="mask rgba-black-slight"></div>
+                </div>
+                </a>
+            </div>
+            <div class="text-center pt-4"><br>
+                <p><span class="mr-1"><strong>#해시태그들어갈자리다 이말이야</strong></span></p>
+                <p>
+                  {% for hash_tag in hash_tags%}
+                    <span class="badge badge-primary">{{hash_tag}}</span>
+                    <span class="badge badge-primary">#Two</span>
+                    <span class="badge badge-primary">#Three</span>
+                    <span class="badge badge-primary">#Four</span> 
+                  {% endfor %}
+
+                </p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}   -->
+
+
+<div class="content">
+
+
+
+          <!--Grid column-->
+  
+          <!--Grid column-->
+  
+            <!-- Section: Block Content -->
+
+  
+         
+            <!-- Section: Block Content -->
+  
+            <!--Section: Block Content-->
+  
+  
+              <!-- Loader -->
+  
+              <div id="loader" class="loader-overlay" style="display: none;">
+                <div class="preloader-wrapper active">
+                  <div class="spinner-layer spinner-blue-only">
+                    <div class="circle-clipper left">
+                      <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                      <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                      <div class="circle"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+  
+              <!-- Loader -->
+  
+              <!-- Grid row -->
+            
+              <!-- Grid row -->
+  
+            </section>
+            
+            <!--Section: Block Content-->
+  
+            <!-- Section: Block Content -->
+
+            <!-- Section: Block Content -->
+  
+          </div>
+          <!--Grid column-->
+  
+        </div>
+        <!--Grid row-->
+  
+      </div>
+    </main>
+    <!--Main layout-->
+  
+    
+  </body>
+
+  {% endblock content %}
