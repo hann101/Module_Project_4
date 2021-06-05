@@ -1,8 +1,8 @@
 from policy.views.image_data import image
 import boto3
 def s3_image_path():
-    __aws_access_key_id__ = 'AKIAYLOHHE3A4V4D5I6F' # 자신의 ACCESS_KEY로 대체
-    __aws_secret_access_key__ = 'xmx68Q5y9/C9LTBR/pOjAU86cOhGhBEAW2jeQPXZ' # 자신의 SECRET_ACCESS_KEY로 대체
+    __aws_access_key_id__ = '' # 자신의 ACCESS_KEY로 대체
+    __aws_secret_access_key__ = '' # 자신의 SECRET_ACCESS_KEY로 대체
 
     s3 = boto3.client(
     's3', # 사용할 서비스 이름, ec2이면 'ec2', s3이면 's3', dynamodb이면 'dynamodb'
